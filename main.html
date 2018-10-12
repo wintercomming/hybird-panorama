@@ -21,11 +21,38 @@ html, body{
 .backtoOriginIcon {
   background: url("static/icon1.png");
 }
+.backtoOriginIcon:active{
+    background-image: url("static/icon2.png");
+}
+.backtoOriginIcon:visited{
+    background-image: url("static/icon1.png");
+}
 .meteorologicalDataIcon {
     background: url("static/icon3.png");
 }
+.meteorologicalDataIcon:active{
+    background-image: url("static/icon4.png");
+}
+.meteorologicalDataIcon:visited{
+    background-image: url("static/icon3.png");
+}
 .shopInformationIcon {
     background: url("static/icon5.png");
+}
+.shopInformationIcon:active{
+    background-image: url("static/icon6.png");
+}
+.shopInformationIcon:visited{
+    background-image: url("static/icon5.png");
+}
+.vrIcon{
+    background: url("static/icon7.png");   
+}
+.vrIcon:active{
+    background-image: url("static/icon8.png");
+}
+.vrIcon:visited{
+    background-image: url("static/icon7.png");
 }
 .icon_child {
   margin-top: 30% !important;
@@ -145,28 +172,29 @@ html, body{
                     <div class="backtoOriginIcon icon_child" onclick="backtoOrigin()" id="backtoOriginIcon"></div>
                     <div class="meteorologicalDataIcon icon_child" id="meteorologicalDataIcon"></div>
                     <div class="shopInformationIcon icon_child" id="shopInformationIcon"></div>
+                    <div class="vrIcon icon_child" id="vrIcon"></div>
     </div>
     <div class="meteorologicalData">
         <div class="meteorologicalDataMain">
-<p class="meteorologicalDataName">大气农场</p>
-<p class="meteorologicalDataLocation">坐标: 70.777N,28.888E</p><p class="date">2018/07/07 10:00:00</p>
+<p class="meteorologicalDataName"></p>
+<p class="meteorologicalDataLocation"></p><p class="date"></p>
 </div>
     </div>
     <div class="meteorologicalDataDetail">
-        <p class="airTem">空气温度  26°C</p>
-        <p class="airHum">空气湿度  95.2%</p>
-        <p class="dewPointTem">露点温度 18.9°C</p>
-        <p class="lightIntensity">光照强度 35.0lux</p>
-        <p class="rainfall">降雨量 0mm</p>
-        <p class="windSpeed">风力  0.1m/s</p>
-        <p class="airPressure">气压    1009.3pa</p>
+        <p class="airTem"></p>
+        <p class="airHum"></p>
+        <p class="dewPointTem"></p>
+        <p class="lightIntensity"></p>
+        <p class="rainfall"></p>
+        <p class="windSpeed"></p>
+        <p class="airPressure"></p>
     </div>
     <div class="farm_information">
         <div class="farm_picture"></div>
         <div class="farm_name">
-            <p class="farm_name_title">四季农场</p>
-            <p class="farm_name_hostname">农场主</p>
-            <button class="farm_name_shopUrl">进入店铺看看</button>
+            <p class="farm_name_title"></p>
+            <p class="farm_name_hostname"></p>
+            <a id="shopUrl"><button class="farm_name_shopUrl">去店铺逛逛</button></a>
         </div>
         <div class="closeinformationicon"><img src="/static/closeicon.png" class="closeicon"></div>
     </div>
