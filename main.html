@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" rel="stylesheet">
+    <style>
+html, body{ 
+    margin:0; height:100%;
+    line-height: 0.8; }
+.main{
+    width: 100%;
+    height:100%;
+}
+#panoramaConianer{
+    width: 100%;
+    height:100%;
+}
+.backtoOriginIcon {
+  background: url("static/icon1.png");
+}
+.meteorologicalDataIcon {
+    background: url("static/icon3.png");
+}
+.shopInformationIcon {
+    background: url("static/icon5.png");
+}
+.icon_child {
+  margin-top: 30% !important;
+  height: 47px;
+  width: 47px;
+  background-size:100% 100%;
+}
+.icon {
+  position: absolute;
+  z-index: 3;
+  right: 3%;
+}
+.meteorologicalData{
+    position:absolute;
+    left:20px;
+    bottom:2%;
+    z-index: 2;
+    color:#fff;
+    font-weight: 400;
+    font-family: "微软雅黑";
+}
+.meteorologicalDataName{
+    font-size: 24px;
+}
+.meteorologicalDataLocation{
+    font-size: 16px;
+    line-height: 20px;
+}
+.meteorologicalDataDetail{
+    position: absolute;
+    top:10px;
+    left:10px;
+    z-index: 2;
+    color: #fff;
+    line-height: 0.8;
+    font-weight: 300;
+}
+.logo{
+    position: absolute;
+    right:10px;
+    bottom:10px;
+    z-index:2;
+}
+.farm_information{
+    position: absolute;
+    width:250px;
+    height:250px;
+    z-index: 2;
+    left:50%;
+    top:50%;
+    margin-left:-125px;
+    margin-top:-125px;
+    border-radius: 12px;
+}
+.farm_picture{
+    width: 100%;
+    height:50%;
+    background:url("static/picture1.jpg");
+    background-size: 100% 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow:hidden;
+}
+.farm_name{
+    position:absolute;
+    width: 100%;
+    height:50%;
+    background: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius:12px;
+    text-align: center;
+    line-height: 0;
+}
+.farm_name_title{
+    font-size: 1.2rem;
+    margin-top:25px;
+    font-weight:500;
+}
+.farm_name_hostname{
+    font-size: 0.8rem;
+    font-weight: 300;
+    margin-top:25px;
+}
+.farm_name_shopUrl{
+    width:90%;
+    height:20%;
+    margin-top:25px;
+    border-radius:5px;
+    background-color:rgb(46, 165, 100);
+    border:0px;
+    font-size:0.7rem;
+    color: #fff;
+    font-weight: 300;
+}
+.closeinformationicon{
+    width:30px;
+    height:30px;
+    position:absolute;
+    z-index: 2;
+    margin-top: 145px;
+    left:50%;
+    margin-left: -15px;
+}
+.closeicon{
+    position:absolute;
+    width: 23px;
+    height: 23px;
+    left:50%;
+    margin-left:-11.5px;
+}
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div id="panoramaConianer">
+            <div class="icon" >
+                    <div class="backtoOriginIcon icon_child" onclick="backtoOrigin()" id="backtoOriginIcon"></div>
+                    <div class="meteorologicalDataIcon icon_child" id="meteorologicalDataIcon"></div>
+                    <div class="shopInformationIcon icon_child" id="shopInformationIcon"></div>
+    </div>
+    <div class="meteorologicalData">
+        <div class="meteorologicalDataMain">
+<p class="meteorologicalDataName">大气农场</p>
+<p class="meteorologicalDataLocation">坐标: 70.777N,28.888E</p><p class="date">2018/07/07 10:00:00</p>
+</div>
+    </div>
+    <div class="meteorologicalDataDetail">
+        <p class="airTem">空气温度  26°C</p>
+        <p class="airHum">空气湿度  95.2%</p>
+        <p class="dewPointTem">露点温度 18.9°C</p>
+        <p class="lightIntensity">光照强度 35.0lux</p>
+        <p class="rainfall">降雨量 0mm</p>
+        <p class="windSpeed">风力  0.1m/s</p>
+        <p class="airPressure">气压    1009.3pa</p>
+    </div>
+    <div class="farm_information">
+        <div class="farm_picture"></div>
+        <div class="farm_name">
+            <p class="farm_name_title">四季农场</p>
+            <p class="farm_name_hostname">农场主</p>
+            <button class="farm_name_shopUrl">进入店铺看看</button>
+        </div>
+        <div class="closeinformationicon"><img src="/static/closeicon.png" class="closeicon"></div>
+    </div>
+    <div class="logo"><img src="/static/logo.png"></div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://airag-aes.oss-cn-shenzhen.aliyuncs.com/11/19370855/20180929/19370855-20180929160443717/tour.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
