@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>全景</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" rel="stylesheet">
     <style>
 html, body{ 
@@ -30,29 +30,11 @@ html, body{
 .meteorologicalDataIcon {
     background: url("static/icon3.png");
 }
-.meteorologicalDataIcon:active{
-    background-image: url("static/icon4.png");
-}
-.meteorologicalDataIcon:visited{
-    background-image: url("static/icon3.png");
-}
 .shopInformationIcon {
     background: url("static/icon5.png");
 }
-.shopInformationIcon:active{
-    background-image: url("static/icon6.png");
-}
-.shopInformationIcon:visited{
-    background-image: url("static/icon5.png");
-}
 .vrIcon{
     background: url("static/icon7.png");   
-}
-.vrIcon:active{
-    background-image: url("static/icon8.png");
-}
-.vrIcon:visited{
-    background-image: url("static/icon7.png");
 }
 .icon_child {
   margin-top: 30% !important;
@@ -67,19 +49,21 @@ html, body{
 }
 .meteorologicalData{
     position:absolute;
-    left:20px;
-    bottom:2%;
+    left:10px;
+    bottom:5px;
     z-index: 2;
     color:#fff;
     font-weight: 400;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑"
 }
 .meteorologicalDataName{
     font-size: 24px;
+    text-shadow:1px 1px 0.5px  rgba(0,0,0,0.6);
 }
 .meteorologicalDataLocation{
     font-size: 16px;
-    line-height: 20px;
+    line-height: 5px;
+    text-shadow:1px 1px 0.5px  rgba(0,0,0,0.6);
 }
 .meteorologicalDataDetail{
     position: absolute;
@@ -87,14 +71,23 @@ html, body{
     left:10px;
     z-index: 2;
     color: #fff;
-    line-height: 0.8;
-    font-weight: 300;
+    line-height: 0.5;
+    display: none;
+    text-shadow:1px 1px 0.5px rgba(0,0,0,0.6);
+    font-family: "微软雅黑"
 }
 .logo{
     position: absolute;
     right:10px;
-    bottom:10px;
+    bottom:15px;
     z-index:2;
+    width:52px;
+    height:22px;
+}
+.logoimage{
+    width:52px;
+    height:25px;
+    opacity: 0.6;  
 }
 .farm_information{
     position: absolute;
@@ -106,6 +99,7 @@ html, body{
     margin-left:-125px;
     margin-top:-125px;
     border-radius: 12px;
+    display:none;
 }
 .farm_picture{
     width: 100%;
@@ -138,8 +132,8 @@ html, body{
 }
 .farm_name_shopUrl{
     width:90%;
-    height:20%;
-    margin-top:25px;
+    height:23%;
+    margin-top:20px;
     border-radius:5px;
     background-color:rgb(46, 165, 100);
     border:0px;
@@ -162,6 +156,9 @@ html, body{
     height: 23px;
     left:50%;
     margin-left:-11.5px;
+}
+.date{
+    text-shadow:1px 1px 0.5px rgba(0,0,0,0.6);
 }
     </style>
 </head>
@@ -196,12 +193,92 @@ html, body{
             <p class="farm_name_hostname"></p>
             <a id="shopUrl"><button class="farm_name_shopUrl">去店铺逛逛</button></a>
         </div>
-        <div class="closeinformationicon"><img src="/static/closeicon.png" class="closeicon"></div>
+        <div class="closeinformationicon"><img src="static/closeicon.png" class="closeicon"></div>
     </div>
-    <div class="logo"><img src="/static/logo.png"></div>
+    <div class="logo"><img src="static/logo.png" class="logoimage"></div>
+</div>
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://airag-aes.oss-cn-shenzhen.aliyuncs.com/11/19370855/20180929/19370855-20180929160443717/tour.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+   if(wx && wx.ready){
+          $.ajax({
+              url: "http://tp.gw.airag.cn/wechat/jsapi",  // url---->地址
+              type: "GET",   // type ---> 请求方式
+              async: true,   // async----> 同步：false，异步：true
+              data:{
+                  'thirdPartyType': 'WeChat',
+                  'url' : window.location.href
+              },
+              success: function (data) {   //返回接受信息
+                  var data = JSON.parse(data);
+                  if(data.code === 0){
+                      var obj = JSON.parse(data.obj);
+                      var $title = "农眼全景--720° 大开眼界",     //分享后显示的标题，这个不需要改
+                          $imgUrl = a.farm_picture,  //全景图片或者缩略图
+                          $desc = "全球首款应用全景成像技术的农业无线智能监测设备",   //分享后显示的简介，这个不需要改
+                          $link =  window.location.href;    //你要分享出去连接，不知道的话找宏华
+                      obj.jsApiList = ["onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareQZone"]
+                      // wx.config({
+                      //     "appId":obj.appId,   //通过接口获取
+                      //     "timestamp":obj.timestamp,             //通过接口获取
+                      //     "nonceStr":obj.nonceStr,    //通过接口获取
+                      //     "signature":obj.signature,    //通过接口获取
+                      //     "jsApiList":["onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareQZone"]});    //这个不用改，就这个样子
+
+                      //obj.debug = true;
+                      wx.config(obj)
+                      wx.ready(function () {
+                          // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+                          wx.onMenuShareTimeline({
+                              title: $title,
+                              imgUrl: $imgUrl,
+                              link: $link,
+                              success: function (res) {
+                                  /*分享成功后的操作，没有就空着*/
+
+                              }
+                          });
+
+                          // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+                          wx.onMenuShareAppMessage({
+                              title: $title,
+                              imgUrl: $imgUrl,
+                              desc: $desc,
+                              link: $link,
+                              success: function (res) {
+                                  /*分享成功后的操作，没有就空着*/
+                              }
+                          });
+
+                          wx.onMenuShareQQ({
+                              title: $title, // 分享标题
+                              imgUrl: $imgUrl, // 分享图标
+                              desc: $desc,
+                              link: $link,
+                              success: function (res) {
+                                  /*分享成功后的操作，没有就空着*/
+                              }
+                          });
+
+                          wx.onMenuShareQZone({
+                              title: $title, // 分享标题
+                              imgUrl: $imgUrl, // 分享图标
+                              desc: $desc,
+                              link: $link,
+                              success: function (res) {
+                                  /*分享成功后的操作，没有就空着*/
+                              }
+                          });
+
+                      });
+                  }
+
+              }
+          });
+      }
+    </script>
 </body>
 </html>

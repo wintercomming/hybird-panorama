@@ -1,16 +1,4 @@
 var krpano = null;
-setTimeout(function(){
-    embedpano({
-    swf: "krpano.swf",
-    xml:a.tourXml,
-    target: "panoramaConianer",
-    html5: "auto",
-    mobilescale: 1.0,
-    passQueryParameters: true,
-    id:"pano1",
-    onready:krpano_onready_callback
-  });
-},10);
 krpano_onready_callback = function(krpano_interface){
     krpano = krpano_interface;
 }
@@ -18,39 +6,143 @@ backtoOrigin=function(){
     //alert(1);
     krpano.call("lookto(0,0,100)");
 }
-//$("#backtoOriginIcon").ontouchstart(function(){
-    //$("#backtoOriginIcon").css("backgroundImage","url('static/icon2.png')");
-//})
-$(".meteorologicalDataName")
+var showmeteorologicalDataIcon = 0;
 $("#meteorologicalDataIcon").click(function(){
-    
-    $(".meteorologicalDataDetail").fadeToggle(200);    
+    $(".meteorologicalDataDetail").fadeToggle(200);
+    if(showmeteorologicalDataIcon%2==0){
+        $("#meteorologicalDataIcon").css("background-image","url('static/icon4.png')");
+        showmeteorologicalDataIcon++;
+    }
+    else{
+        $("#meteorologicalDataIcon").css("background-image","url('static/icon3.png')");
+        showmeteorologicalDataIcon++;
+    }    
 })
+var showshopInformationIcon = 0;
 $("#shopInformationIcon").click(function(){
     
-    $(".farm_information").fadeToggle(200);    
+    $(".farm_information").fadeToggle(200);
+    if(showshopInformationIcon%2==0){
+        $("#shopInformationIcon").css("background-image","url('static/icon6.png')");
+        showshopInformationIcon++;
+    }
+    else{
+        $("#shopInformationIcon").css("background-image","url('static/icon5.png')");
+        showshopInformationIcon++;
+    }        
 })
 $(".closeicon").click(function(){
     
-    $(".farm_information").fadeOut(200);    
+    $(".farm_information").fadeOut(200); 
+    if(showshopInformationIcon%2==0){
+        $("#shopInformationIcon").css("background-image","url('static/icon6.png')");
+        showshopInformationIcon++;
+    }
+    else{
+        $("#shopInformationIcon").css("background-image","url('static/icon5.png')");
+        showshopInformationIcon++;
+    }           
 })
+var showvrIcon = 0;
 $(".vrIcon").click(function(){
     var krpano = document.getElementById('pano1');
-    krpano.call("webvr.enterVR()");  
+
+    if(showvrIcon%2==0){
+        $(".vrIcon").css("background-image","url('static/icon8.png')");
+        showvrIcon++;
+        $(".meteorologicalDataDetail,.meteorologicalData,.farm_information,.shopInformationIcon,.meteorologicalDataIcon,.backtoOriginIcon,.logoimage").hide();
+        krpano.call("webvr.enterVR()");
+    }
+    else{
+        $(".vrIcon").css("background-image","url('static/icon7.png')");
+        showvrIcon++;
+        $(".meteorologicalData,.shopInformationIcon,.meteorologicalDataIcon,.backtoOriginIcon,.logoimage").show();
+        if(showshopInformationIcon%2==1){
+        $("#shopInformationIcon").css("background-image","url('static/icon5.png')");
+        showshopInformationIcon++;
+        }
+        if(showmeteorologicalDataIcon%2==1){
+        $("#meteorologicalDataIcon").css("background-image","url('static/icon3.png')");
+        showmeteorologicalDataIcon++;
+        }
+        krpano.call("webvr.exitVR()");
+    }
 })
-var Data =decodeURIComponent('%7B%22contractorName%22%3A%22%E8%B0%A2%E9%91%91%E6%A0%87%22%2C%22shopUrl%22%3A%22https%3A%2F%2Fweidian.com%2Fi%2F2129204032%3Fwfr%3Dc%26ifr%3Ditemdetail%22%2C%22gpsX%22%3A40.5153497%2C%22gpsY%22%3A96.55247963333333%2C%22collectTime%22%3A%222018-04-03%2011%3A00%3A00%22%2C%22airHum%22%3A50.43%2C%22airPressure%22%3A1005.83%2C%22airTem%22%3A29.52%2C%22dewPointTem%22%3A18.13%2C%22lightIntensity%22%3A38383.75%2C%22windSpeed%22%3A1.15%2C%22farmName%22%3A%22%E9%98%B3%E5%85%89%E5%86%9C%E5%9C%BA%22%2C%22tourJs%22%3A%22http%3A%2F%2Fairag-aes.oss-cn-shenzhen.aliyuncs.com%2F11%2F19370855%2F20180929%2F19370855-20180929160443717%2Ftour.js%22%2C%22tourXml%22%3A%22http%3A%2F%2Fairag-aes.oss-cn-shenzhen.aliyuncs.com%2F11%2F19370855%2F20180929%2F19370855-20180929160443717%2Ftour.xml%22%2C%22picture%22%3A%22http%3A%2F%2Fae-images.oss-cn-shenzhen.aliyuncs.com%2F20160709%2F2016070915122860-farm.jpg%22%7D')
-var a=JSON.parse(Data);
-console.log(a);
-$(".windSpeed").html("风速: "+a.windSpeed+"m/s");
-$(".rainfall").html("降雨量: "+a.rainfall+"mm");
-$(".lightIntensity").html("光照强度: "+a.lightIntensity+"lux");
-$(".airTem").html("空气温度: "+a.airTem+"℃");
-$(".airHum").html("空气湿度: "+a.airHum+"%");
-$(".dewPointTem").html("露点温度: "+a.dewPointTem+"℃");
-$(".airPressure").html("气压: "+a.airPressure+"hpa");
-$(".date").html(a.collectTime);
-$(".meteorologicalDataName").html(a.farmName);
-$(".farm_name_title").html(a.farmName);
-$(".farm_name_hostname").html(a.contractorName);
-$("#shopUrl").attr("href",a.shopUrl);
-$(".farm_picture").css("background-image","url("+a.picture+")");
+var Data=getQueryString("picture_id");
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+    return decodeURIComponent(r[2]);
+    }
+    return null;
+    }
+var a ={};
+var url="http://api.airag.cn/ae/api/pic/panorama/details?picture_id="+Data;
+    $.ajax({
+        "url": url,
+        "success": function(response) {
+           a = response.obj;
+           setTimeout(function(){
+            embedpano({
+            swf: "krpano.swf",
+            xml: a.xml,
+            target: "panoramaConianer",
+            html5: "auto",
+            mobilescale: 1.0,
+            passQueryParameters: true,
+            id:"pano1",
+            onready:krpano_onready_callback
+          });
+        },10);
+if(a.weather.light_intensity!=""){        
+$(".lightIntensity").html("光照强度: "+a.weather.light_intensity+"lux");
+}
+if(a.weather.air_tem!=""){ 
+$(".airTem").html("空气温度: "+a.weather.air_tem+"℃");
+}
+if(a.weather.air_hum!=""){
+$(".airHum").html("空气湿度: "+a.weather.air_hum+"%");
+}
+if(a.weather.dew_point_tem!=""){
+var dew_point_tem=a.weather.dew_point_tem.toFixed(2);
+$(".dewPointTem").html("露点温度: "+dew_point_tem+"℃");
+}
+if(a.weather.air_pressure!=""){
+$(".airPressure").html("气压: "+a.weather.air_pressure+"hpa");
+}
+$(".date").html(a.collect_time);
+if(a.gps_x!=null&&a.gps_y!=null&&a.gps_x>=0&&a.gps_y>=0){
+    var gpsX=a.gps_x.toFixed(2);
+    var gpsY=a.gps_y.toFixed(2);
+$(".meteorologicalDataLocation").html("坐标: "+gpsX+"N"+"  "+gpsY+"E");
+}
+if(a.gps_x!=null&&a.gps_y!=null&&a.gps_x>=0&&a.gps_y<0){
+    let gpsX=Math.abs(a.gps_x.toFixed(2));
+    let gpsY=Math.abs(a.gps_y.toFixed(2));
+    $(".meteorologicalDataLocation").html("坐标: "+gpsX+"N"+"  "+gpsY+"W");
+    }
+if(a.gps_x!=null&&a.gps_y!=null&&a.gps_x<0&&a.gps_y>=0){
+    let gpsX=Math.abs(a.gps_x.toFixed(2));
+    let gpsY=Math.abs(a.gps_y.toFixed(2));
+$(".meteorologicalDataLocation").html("坐标: "+gpsX+"S"+"  "+gpsY+"E");
+}
+if(a.gps_x!=null&&a.gps_y!=null&&a.gps_x<0&&a.gps_y<0){
+    let gpsX=Math.abs(a.gps_x.toFixed(2));
+    let gpsY=Math.abs(a.gps_y.toFixed(2));
+$(".meteorologicalDataLocation").html("坐标: "+gpsX+"S"+"  "+gpsY+"W");
+    }
+$(".meteorologicalDataName").html(a.farm_name);
+$(".farm_name_title").html(a.farm_name);
+$(".farm_name_hostname").html(a.contractor_name);
+if(a.shop_url==null){
+    $("#shopUrl").hide();
+}else{
+$("#shopUrl").attr("href",a.shop_url);
+}
+$(".farm_picture").css("background-image","url("+a.farm_picture+")");
+        },
+"error": function(d,msg) {
+            alert("Could not find user "+msg);
+        }
+    });
